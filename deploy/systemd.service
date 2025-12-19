@@ -1,0 +1,32 @@
+# Systemd service файл для Next.js приложения
+# Разместите в /etc/systemd/system/cozy-space.service
+# Использование:
+#   sudo cp deploy/systemd.service /etc/systemd/system/cozy-space.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable cozy-space
+#   sudo systemctl start cozy-space
+
+[Unit]
+Description=Cozy Space Next.js Application
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/cozy-space
+Environment=NODE_ENV=production
+Environment=PORT=3000
+ExecStart=/usr/bin/node /var/www/cozy-space/server.js
+Restart=on-failure
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=cozy-space
+
+# Ограничения безопасности
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target
+

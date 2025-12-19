@@ -1,0 +1,64 @@
+.codeBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.code {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #667eea;
+  white-space: pre;
+  margin: 0;
+  padding: 3rem;
+  width: 100%;
+  max-width: 1200px;
+  animation: codeFade 25s ease-in-out infinite;
+  user-select: none;
+  opacity: 0.35;
+  filter: blur(0.05px);
+  text-shadow: 0 0 2px rgba(102, 126, 234, 0.15);
+}
+
+@keyframes codeFade {
+  0%, 100% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.01);
+  }
+}
+
+.code code {
+  display: block;
+  font-family: inherit;
+  color: inherit;
+}
+
+@media (min-width: 1024px) {
+  .code {
+    font-size: 1.125rem;
+    max-width: 1400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .code {
+    font-size: 0.875rem;
+    padding: 2rem;
+    max-width: 100%;
+  }
+}
+

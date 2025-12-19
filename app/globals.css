@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+* {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Стили для подсветки синтаксиса в фоновом коде */
+code.codeBackground {
+  color: #667eea;
+}
+
+code.codeBackground span.keyword {
+  color: #c792ea !important;
+  font-weight: 600;
+  opacity: 1 !important;
+}
+
+code.codeBackground span.string {
+  color: #c3e88d !important;
+  opacity: 1 !important;
+}
+
+code.codeBackground span.function {
+  color: #82aaff !important;
+  opacity: 1 !important;
+}
+
+code.codeBackground span.comment {
+  color: #546e7a !important;
+  font-style: italic;
+  opacity: 0.9 !important;
+}
+
+code.codeBackground span.number {
+  color: #f78c6c !important;
+  opacity: 1 !important;
+}
+
+code.codeBackground span.type {
+  color: #ffcb6b !important;
+  opacity: 1 !important;
+}
+

@@ -1,0 +1,130 @@
+.footer {
+  background: #1a1a1a;
+  color: white;
+  padding: 3rem 1.5rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.brand {
+  text-align: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  text-align: center;
+}
+
+.linkGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.linkTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.link {
+  color: #999;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #667eea;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid #333;
+}
+
+.copyright p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 2rem 1rem 1.5rem;
+  }
+
+  .content {
+    gap: 1.5rem;
+  }
+
+  .links {
+    gap: 1.5rem;
+  }
+
+  .linkGroup {
+    gap: 0.5rem;
+  }
+
+  .link {
+    font-size: 0.85rem;
+    word-break: break-word;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer {
+    padding: 4rem 2rem 2rem;
+  }
+
+  .content {
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    text-align: left;
+  }
+
+  .brand {
+    text-align: left;
+  }
+
+  .links {
+    grid-template-columns: repeat(3, 1fr);
+    text-align: left;
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .links {
+    gap: 3rem;
+  }
+}
+
