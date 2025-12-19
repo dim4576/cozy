@@ -12,61 +12,39 @@ function highlightCode(code: string) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
   
-  // Используем маркеры для защиты уже обработанных частей
-  const markers: string[] = []
-  let markerIndex = 0
+  // Используем временные маркеры для защиты уже обработанных частей
+  const markers: Array<{ id: string; content: string }> = []
+  let markerId = 0
   
-  // Функция для создания маркера
-  const createMarker = (content: string) => {
-    const marker = `__MARKER_${markerIndex++}__`
-    markers.push(content)
-    return marker
+  const protect = (content: string): string => {
+    const id = `__M${markerId++}__`
+    markers.push({ id, content })
+    return id
   }
   
   // 1. Комментарии (сначала, чтобы не конфликтовали)
-  highlighted = highlighted.replace(/(\/\/.*$)/gm, (match) => createMarker(`<span class="comment">${match}</span>`))
-  highlighted = highlighted.replace(/(\/\*[\s\S]*?\*\/)/g, (match) => createMarker(`<span class="comment">${match}</span>`))
+  highlighted = highlighted.replace(/(\/\/.*$)/gm, (match) => protect(`<span class="comment">${match}</span>`))
+  highlighted = highlighted.replace(/(\/\*[\s\S]*?\*\/)/g, (match) => protect(`<span class="comment">${match}</span>`))
   
   // 2. Строки (до ключевых слов, чтобы не обрабатывать их содержимое)
-  highlighted = highlighted.replace(/(['"`])((?:\\.|(?!\1)[^\\])*?)\1/g, (match) => createMarker(`<span class="string">${match}</span>`))
+  highlighted = highlighted.replace(/(['"`])((?:\\.|(?!\1)[^\\])*?)\1/g, (match) => protect(`<span class="string">${match}</span>`))
   
   // 3. Ключевые слова (только вне строк и комментариев)
-  highlighted = highlighted.replace(/\b(const|let|var|function|interface|type|export|import|return|if|else|for|while|async|await|class|extends|implements|typeof|keyof|in|of|as|is)\b/g, (match) => {
-    // Проверяем, что это не внутри маркера
-    if (!match.includes('__MARKER_')) {
-      return createMarker(`<span class="keyword">${match}</span>`)
-    }
-    return match
-  })
+  highlighted = highlighted.replace(/\b(const|let|var|function|interface|type|export|import|return|if|else|for|while|async|await|class|extends|implements|typeof|keyof|in|of|as|is)\b/g, (match) => protect(`<span class="keyword">${match}</span>`))
   
   // 4. Типы (должны быть после ключевых слов)
-  highlighted = highlighted.replace(/\b([A-Z][a-zA-Z0-9]*)\b(?=\s*[<:;,\[\)])/g, (match) => {
-    if (!match.includes('__MARKER_')) {
-      return createMarker(`<span class="type">${match}</span>`)
-    }
-    return match
-  })
+  highlighted = highlighted.replace(/\b([A-Z][a-zA-Z0-9]*)\b(?=\s*[<:;,\[\)])/g, (match) => protect(`<span class="type">${match}</span>`))
   
   // 5. Функции (имена перед скобками)
-  highlighted = highlighted.replace(/\b([a-z][a-zA-Z0-9]*)\s*(?=\()/g, (match) => {
-    if (!match.includes('__MARKER_')) {
-      return createMarker(`<span class="function">${match.trim()}</span>`)
-    }
-    return match
-  })
+  highlighted = highlighted.replace(/\b([a-z][a-zA-Z0-9]*)\s*(?=\()/g, (match) => protect(`<span class="function">${match.trim()}</span>`))
   
   // 6. Числа
-  highlighted = highlighted.replace(/\b(\d+\.?\d*)\b/g, (match) => {
-    if (!match.includes('__MARKER_')) {
-      return createMarker(`<span class="number">${match}</span>`)
-    }
-    return match
-  })
+  highlighted = highlighted.replace(/\b(\d+\.?\d*)\b/g, (match) => protect(`<span class="number">${match}</span>`))
   
-  // Восстанавливаем маркеры
-  markers.forEach((content, index) => {
-    highlighted = highlighted.replace(`__MARKER_${index}__`, content)
-  })
+  // Восстанавливаем маркеры в обратном порядке
+  for (let i = markers.length - 1; i >= 0; i--) {
+    highlighted = highlighted.replace(new RegExp(markers[i].id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), markers[i].content)
+  }
   
   return highlighted
 }
