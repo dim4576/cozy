@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import styles from './CodeBackground.module.css'
 
 interface CodeBackgroundProps {
@@ -84,12 +87,19 @@ function highlightCode(code: string) {
 }
 
 export default function CodeBackground({ code }: CodeBackgroundProps) {
+  const codeRef = useRef<HTMLElement>(null)
   const highlightedCode = highlightCode(code)
+  
+  useEffect(() => {
+    if (codeRef.current) {
+      codeRef.current.innerHTML = highlightedCode
+    }
+  }, [highlightedCode])
   
   return (
     <div className={styles.codeBackground}>
       <pre className={styles.code}>
-        <code className="codeBackground" dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+        <code ref={codeRef} className="codeBackground" />
       </pre>
     </div>
   )
