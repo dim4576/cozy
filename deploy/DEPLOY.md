@@ -292,9 +292,17 @@ fi
 if [ ! -d ".next/standalone/public" ]; then
   cp -r public .next/standalone/public
   echo "Папка public скопирована в standalone"
+else
+  # Обновить существующую папку public
+  cp -r public/* .next/standalone/public/
+  echo "Папка public обновлена"
 fi
 
-# 5. Перезапустите приложение
+# 5. Проверьте доступность фавиконок
+echo "Проверка фавиконок:"
+ls -la .next/standalone/public/icon.* 2>/dev/null || echo "Фавиконки не найдены!"
+
+# 6. Перезапустите приложение
 pm2 restart cozy-space
 
 # 5. Проверьте логи
