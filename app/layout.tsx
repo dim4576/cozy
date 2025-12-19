@@ -27,8 +27,12 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: '/icon.avif',
+    icon: [
+      { url: '/icon.avif', type: 'image/avif' },
+      { url: '/icon.svg', type: 'image/svg+xml', sizes: 'any' },
+    ],
     apple: '/icon.avif',
+    shortcut: '/icon.avif',
   },
   openGraph: {
     type: 'website',
@@ -69,6 +73,9 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
+        <link rel="icon" href="/icon.avif" type="image/avif" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/icon.avif" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
