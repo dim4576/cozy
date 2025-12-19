@@ -8,7 +8,7 @@ module.exports = {
       script: './.next/standalone/server.js',
       instances: 1, // Для начала используйте 1, можно увеличить для кластера
       exec_mode: 'fork', // или 'cluster' для нескольких процессов
-      cwd: '/root/cozy', // Абсолютный путь к директории проекта
+      cwd: '/root/www/cozy', // Абсолютный путь к директории проекта
       env: {
         NODE_ENV: 'production',
         PORT: 3000,
