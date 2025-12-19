@@ -27,10 +27,7 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: [
-      { url: '/icon.avif', type: 'image/avif' },
-      { url: '/icon.svg', type: 'image/svg+xml', sizes: 'any' },
-    ],
+    icon: '/icon.avif',
     apple: '/icon.avif',
     shortcut: '/icon.avif',
   },
@@ -74,7 +71,6 @@ export default function RootLayout({
     <html lang="ru">
       <head>
         <link rel="icon" href="/icon.avif" type="image/avif" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon.avif" />
         <script
           type="application/ld+json"
