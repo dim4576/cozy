@@ -8,6 +8,9 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@/components'],
   },
+  // Отключаем автоматический prefetch для ссылок
+  // Это может помочь уменьшить ненужные запросы
+  poweredByHeader: false,
 }
 
 module.exports = nextConfig
