@@ -44,7 +44,7 @@
 .code code {
   display: block;
   font-family: inherit;
-  color: inherit;
+  /* Не переопределяем color, чтобы работала подсветка синтаксиса */
 }
 
 @media (min-width: 1024px) {
