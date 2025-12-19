@@ -34,20 +34,33 @@ function highlightCode(code: string) {
     return protect(`<span class="string">${escaped}</span>`)
   })
   
-  // 3. Экранируем весь оставшийся код (кроме маркеров)
-  highlighted = highlighted.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-  
-  // 4. Ключевые слова (только вне строк и комментариев, которые уже защищены)
+  // 3. Обрабатываем синтаксис ДО экранирования HTML (чтобы регулярные выражения работали правильно)
+  // Ключевые слова (только вне строк и комментариев, которые уже защищены)
   highlighted = highlighted.replace(/\b(const|let|var|function|interface|type|export|import|return|if|else|for|while|async|await|class|extends|implements|typeof|keyof|in|of|as|is)\b/g, (match) => protect(`<span class="keyword">${match}</span>`))
   
-  // 5. Типы (должны быть после ключевых слов)
-  highlighted = highlighted.replace(/\b([A-Z][a-zA-Z0-9]*)\b(?=\s*[&lt;:;,\[\)])/g, (match) => protect(`<span class="type">${match}</span>`))
+  // Типы (должны быть после ключевых слов)
+  highlighted = highlighted.replace(/\b([A-Z][a-zA-Z0-9]*)\b(?=\s*[<:;,\[\)])/g, (match) => protect(`<span class="type">${match}</span>`))
   
-  // 6. Функции (имена перед скобками)
+  // Функции (имена перед скобками)
   highlighted = highlighted.replace(/\b([a-z][a-zA-Z0-9]*)\s*(?=\()/g, (match) => protect(`<span class="function">${match.trim()}</span>`))
   
-  // 7. Числа
+  // Числа
   highlighted = highlighted.replace(/\b(\d+\.?\d*)\b/g, (match) => protect(`<span class="number">${match}</span>`))
+  
+  // 4. Экранируем весь оставшийся код (кроме маркеров и уже обработанных span тегов)
+  // Сначала восстанавливаем маркеры временно, чтобы экранировать только незащищенные части
+  const tempMarkers = [...markers]
+  for (let i = tempMarkers.length - 1; i >= 0; i--) {
+    highlighted = highlighted.replace(new RegExp(tempMarkers[i].id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), `__TEMP_${i}__`)
+  }
+  
+  // Экранируем незащищенные части
+  highlighted = highlighted.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  
+  // Восстанавливаем временные маркеры обратно
+  for (let i = 0; i < tempMarkers.length; i++) {
+    highlighted = highlighted.replace(`__TEMP_${i}__`, tempMarkers[i].id)
+  }
   
   // Восстанавливаем маркеры в обратном порядке
   for (let i = markers.length - 1; i >= 0; i--) {
