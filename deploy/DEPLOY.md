@@ -325,6 +325,8 @@ chmod +x deploy/deploy.sh
 ### Вариант 2: Ручной деплой
 
 ```bash
+cd ~/www/cozy
+
 # 1. Обновление кода
 git pull origin main
 
@@ -338,13 +340,19 @@ npm run build
 if [ ! -d ".next/standalone/.next/static" ]; then
   mkdir -p .next/standalone/.next
   cp -r .next/static .next/standalone/.next/static
+  echo "Статические файлы скопированы"
 fi
+
 if [ ! -d ".next/standalone/public" ]; then
   cp -r public .next/standalone/public
+  echo "Папка public скопирована"
 fi
 
 # 5. Перезапуск через PM2
 pm2 restart cozy-space
+
+# 6. Проверка логов
+pm2 logs cozy-space --lines 20
 ```
 
 ### Вариант 3: GitHub Actions / GitLab CI
