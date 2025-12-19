@@ -288,7 +288,13 @@ if [ ! -d ".next/standalone/.next/static" ]; then
   cp -r .next/static .next/standalone/.next/static
 fi
 
-# 4. Перезапустите приложение
+# 4. ВАЖНО: Скопируйте папку public в standalone (для фавиконок и других статических файлов)
+if [ ! -d ".next/standalone/public" ]; then
+  cp -r public .next/standalone/public
+  echo "Папка public скопирована в standalone"
+fi
+
+# 5. Перезапустите приложение
 pm2 restart cozy-space
 
 # 5. Проверьте логи
@@ -328,7 +334,16 @@ npm ci
 # 3. Сборка
 npm run build
 
-# 4. Перезапуск через PM2
+# 4. ВАЖНО: Скопируйте статические файлы и public в standalone
+if [ ! -d ".next/standalone/.next/static" ]; then
+  mkdir -p .next/standalone/.next
+  cp -r .next/static .next/standalone/.next/static
+fi
+if [ ! -d ".next/standalone/public" ]; then
+  cp -r public .next/standalone/public
+fi
+
+# 5. Перезапуск через PM2
 pm2 restart cozy-space
 ```
 
