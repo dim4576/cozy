@@ -221,8 +221,17 @@ sudo apt install certbot python3-certbot-nginx -y
 
 ### 2. Получение SSL сертификата
 
+**ВАЖНО:** Перед запуском Certbot убедитесь, что:
+- Домен `cozyspace.by` указывает на IP вашего сервера (A-запись)
+- Nginx настроен с правильным `server_name` (см. шаг выше)
+- Порт 80 открыт в файрволе
+
 ```bash
-sudo certbot --nginx -d cozyspace.dev -d www.cozyspace.dev
+# Получение сертификата для домена
+sudo certbot --nginx -d cozyspace.by -d www.cozyspace.by
+
+# Или если хотите только основной домен без www:
+# sudo certbot --nginx -d cozyspace.by
 ```
 
 Certbot автоматически:
