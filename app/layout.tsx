@@ -27,8 +27,13 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: '/icon.svg',
-    apple: '/icon.svg',
+    icon: [
+      { url: '/favicon.avif', type: 'image/avif' },
+      { url: '/icon.svg', type: 'image/svg+xml', sizes: 'any' },
+    ],
+    apple: [
+      { url: '/favicon.avif', type: 'image/avif' },
+    ],
   },
   openGraph: {
     type: 'website',
