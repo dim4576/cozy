@@ -94,6 +94,21 @@ sudo chown -R $USER:$USER /var/www/cozy-space
 ```bash
 npm install
 npm run build
+
+# ВАЖНО: Проверка структуры standalone сборки
+# Next.js должен создать:
+# - .next/standalone/server.js
+# - .next/standalone/.next/static/ (симлинк или директория)
+
+# Проверка наличия статических файлов
+ls -la .next/standalone/.next/static/ 2>/dev/null || echo "Статические файлы не найдены в standalone"
+
+# Если статические файлы отсутствуют, скопируйте их:
+if [ ! -d ".next/standalone/.next/static" ]; then
+  mkdir -p .next/standalone/.next
+  cp -r .next/static .next/standalone/.next/static
+  echo "Статические файлы скопированы в standalone"
+fi
 ```
 
 ### 4. Настройка переменных окружения
