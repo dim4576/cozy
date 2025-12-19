@@ -28,14 +28,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/icon.avif', type: 'image/avif' },
-      { url: '/icon.svg', type: 'image/svg+xml', sizes: 'any' },
-      { url: '/favicon.avif', type: 'image/avif' },
+      { url: '/icon.avif?v=2', type: 'image/avif' },
+      { url: '/favicon.avif?v=2', type: 'image/avif' },
     ],
     apple: [
-      { url: '/icon.avif', type: 'image/avif' },
+      { url: '/icon.avif?v=2', type: 'image/avif' },
     ],
-    shortcut: '/icon.avif',
+    shortcut: '/icon.avif?v=2',
   },
   openGraph: {
     type: 'website',
@@ -76,11 +75,9 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
-        <link rel="icon" href="/icon.avif" type="image/avif" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" sizes="any" />
-        <link rel="icon" href="/favicon.avif" type="image/avif" />
-        <link rel="apple-touch-icon" href="/icon.avif" />
-        <link rel="shortcut icon" href="/icon.avif" />
+        <link rel="icon" href="/icon.avif?v=2" type="image/avif" />
+        <link rel="apple-touch-icon" href="/icon.avif?v=2" />
+        <link rel="shortcut icon" href="/icon.avif?v=2" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
